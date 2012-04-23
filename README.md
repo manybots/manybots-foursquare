@@ -46,4 +46,4 @@ And then copy-paste the Client ID and Client Secret in the appropriate "replace 
 
 ### Restart and go!
 
-Restart your server and you'll see the Foursquare Observer in your `/apps` catalogue. Go to the app, sign-in to your Foursquare account and start importing your photos into Manybots.
+Restart your server and you'll see the Foursquare Observer in your `/apps` catalogue. Go to the app, sign-in to your Foursquare account and start importing your checkins into Manybots.
