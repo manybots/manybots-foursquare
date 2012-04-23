@@ -1,0 +1,30 @@
+<div class="clearfix" style="margin-bottom: 20px;">
+  <%= image_tag('manybots-foursquare/icon.png', :align => :left, :width => 40, :style=> 'margin-right: 10px;') %>
+  <h2>Foursquare Observer</h2>
+</div>
+
+<%- @foursquares.each do |foursquare| -%>
+  <div class="card">
+    <h4>
+      <%= foursquare.payload['name'] %> 
+      <span class="meta">
+        <%= link_to 'Delete', foursquare_path(foursquare.id), :method => :delete, :confirm => 'Are you sure?', :class => '' %>
+      </span>
+    </h4>
+
+    <%- if @schedules and @schedules.keys.include?("import_manybots_foursquare_#{foursquare.id}") -%> 
+      <p>Importing checkins by <strong><%= foursquare.payload['name'] %></strong> every 6 hours</p>
+      <p><%= link_to 'Stop importing', toggle_foursquare_path(foursquare.id), :method => :post, :confirm => 'Sure?' %> </p>
+    <%- else -%>
+    
+      <%= form_tag toggle_foursquare_path(foursquare.id), :method => :post, :class => 'clearfix' do %>    
+        <p class="button save" style="float:left;margin: 0 5px 0 0;">
+          <%= submit_tag 'Start importing', :id => 'submit'%> 
+        </p>
+        <span class="meta" style="line-height: 32px;">and refresh every 6 hours.</span>
+      <%- end -%>
+    <%- end -%>
+    <p></p>
+  </div>
+<%- end -%>
+<p><%= link_to 'Register a Foursquare account', new_foursquare_path %></p>
