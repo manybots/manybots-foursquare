@@ -17,7 +17,7 @@ if app.new_record?
   app.name = "Foursquare Observer"
   app.description = "Import your checkins from Foursquare"
   app.url = ManybotsServer.url + '/manybots-foursquare'
-  app.app_icon_url = "/assets/manybots-foursquare/icon.png"
+  app.app_icon_url = ManybotsServer.url + "/assets/manybots-foursquare/icon.png"
   app.developer_name = "Manybots"
   app.developer_url = "https://www.manybots.com"
   app.category = "Lifestyle"
