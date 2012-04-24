@@ -8,7 +8,7 @@ manybots-foursquare is a Manybots Observer that allows you to import your checki
 
 You need the latest version of Manybots Local running on your system. Open your Terminal and `cd` into its' directory.
 
-First, require the gem: edit your `Gemfile`, add the following, and run `bundle install`
+First, require the gem: edit your `Botfile`, add the following, and run `bundle install`
 
 ```
 gem 'manybots-foursquare', :git => 'git://github.com/manybots/manybots-foursquare.git'
@@ -29,6 +29,8 @@ Your Foursquare Observer uses OAuth to authorize you (and/or your other Manybots
 Register your application with Foursquare to get the Client ID and Secret. Go to the [Foursquare App Management page](https://foursquare.com/oauth/register) and create a new application.
 
 And then copy-paste the Client ID and Client Secret in the appropriate "replace me" parts.
+
+Details:
 
 1. Go to this link: https://foursquare.com/oauth/register
 
