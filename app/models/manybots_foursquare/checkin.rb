@@ -14,7 +14,7 @@ module ManybotsFoursquare
         tags: [].push(self.checkin.private? ? 'private' : 'public'),
         title: 'ACTOR checked in to OBJECT',
         auto_title: true,
-        id: "tag:foursquare.com;#{Time.now.year}:checkin/#{self.checkin.id}",
+        id: "tag:foursquare.com;#{Time.at(self.checkin.createdAt).year}:checkin/#{self.checkin.id}",
         url: "http://foursquare.com/user/#{@fs_user_id}/checkin/#{self.checkin.id}"
       }
       puts self.checkin.inspect

@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["alex@webcracy.org"]
   s.homepage    = "http://github.com/manybots/manybots-foursquare"
   s.summary     = "Import your checkins to your Manybots account."
-  s.description = "This Manybots Observer allows you to connect to Foursquare and import commits to your account."
+  s.description = "This Manybots Observer allows you to connect to Foursquare and import checkins to your account."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]

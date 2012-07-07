@@ -27,6 +27,10 @@ class FoursquareWorker
     id
   end
   
+  def reset_ids!
+    self.min_id=nil
+  end
+  
   def get_recent_checkins(options={})
     params = {limit: 30}
     results = self.client.user_checkins(params.merge(options))
@@ -36,17 +40,18 @@ class FoursquareWorker
   
   def get_all_checkins
     @fetched = 0
+    @times_ran = 0
     params = {}
     params[:afterTimestamp] = self.min_id if self.min_id.is_a? Integer
     results = self.get_recent_checkins(params)
     @count = results['count']
     @fetched = results['items'].size
     results = results.items
-    results.delete_at(-1) if results.last.createdAt === self.min_id
+    results.delete_at(-1) if results.last.createdAt == self.min_id
     unless results.empty?
-      self.min_id = results.first.createdAt 
-      while @fetched < @count
+      while @fetched < @count and @times_ran < 30
         results += self.get_recent_checkins(params.merge(offset: @fetched)).items
+        @times_ran += 1
       end
     end
     results
@@ -58,6 +63,7 @@ class FoursquareWorker
     for checkin in checkins
       ManybotsFoursquare::Checkin.new(worker.fs_user_id, checkin, worker.account.user).post_to_manybots!
     end
+    worker.min_id = checkins.first.createdAt 
   end  
     
 end

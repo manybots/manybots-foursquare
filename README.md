@@ -10,15 +10,11 @@ You need the latest version of Manybots Local running on your system. Open your 
 
 First, require the gem: edit your `Gemfile`, add the following, and run `bundle install`
 
-```
-gem 'manybots-foursquare', :git => 'git://github.com/manybots/manybots-foursquare.git'
-```
+    gem 'manybots-foursquare', :git => 'git://github.com/manybots/manybots-foursquare.git'
 
 Second, run the manybots-foursquare install generator (mind the underscore):
 
-```
-rails g manybots_foursquare:install
-```
+    rails g manybots_foursquare:install
 
 Now you need to register your Foursquare Observer with Foursquare.
 
@@ -37,13 +33,23 @@ And then copy-paste the Client ID and Client Secret in the appropriate "replace 
 <img src="https://img.skitch.com/20120423-dme5hmyaf2kb88g4c8gjgnkxbb.png" alt="Foursquare Observer OAuth client configuration">
 
 3. Copy the Client ID and Secret into `config/initializers/manybots-foursquare.rb`
-
+    
 ```
-  config.foursquare_app_id = 'Client ID'
-  config.foursquare_app_secret = 'Secret'
-```  
-
+config.foursquare_app_id = 'Client ID'
+config.foursquare_app_secret = 'Secret'
+```
 
 ### Restart and go!
 
 Restart your server and you'll see the Foursquare Observer in your `/apps` catalogue. Go to the app, sign-in to your Foursquare account and start importing your checkins into Manybots.
+
+## Troubleshooting
+
+If your checkins don't seem to be updating, open your console, reset the worker's latest checkin timestamp, and reschedule the task.
+
+    # rails console
+    app = ClientApplication.find_by_nickname 'manybots-foursquare'
+    oauth_account = OauthAccount.find_by_client_application_id app.id
+    worker = FoursquareWorker.new oauth_account.id
+    worker.reset_ids!
+    worker.perform
